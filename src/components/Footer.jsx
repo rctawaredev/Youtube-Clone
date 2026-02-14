@@ -6,10 +6,11 @@ import { PiListPlusBold } from "react-icons/pi";
 
 const Footer = () => {
   return (
-    <ul className="fixed bottom-0 left-0 w-full h-14 
+    <ul
+      className="fixed bottom-0 left-0 right-0 h-14 
                    bg-slate-200 flex items-center justify-around 
-                   md:hidden">
-
+                   md:hidden"
+    >
       <NavLink to="/" end>
         {({ isActive }) => (
           <AiFillHome
@@ -49,7 +50,6 @@ const Footer = () => {
           />
         )}
       </NavLink>
-
     </ul>
   );
 };

@@ -5,6 +5,10 @@ import Trending from "./components/Trending.jsx";
 import Gaming from "./components/Gaming.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 import Footer from './components/Footer.jsx';
+import Login from './components/Login.jsx'
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import NavFooter from "./components/NavFooter.jsx";
+import ProtectedLayout from "./components/ProtectedLayout.jsx";
 
 import SavedVideos from "./components/SavedVideos.jsx";
 
@@ -13,20 +17,16 @@ import {Route, Routes} from 'react-router-dom'
 const App = () => {
   return (
     <>
-      <Navbar/>
-      <div className="flex h-screen">
-        <Sidebar />
-
-        <div className="w-full mt-14 md:ml-62.5  bg-gray-50 overflow-y-auto ">
+      <div>
+        <div >
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/trending" element={<Trending />} />
-            <Route path="/gaming" element={<Gaming />} />
-            <Route path="/saved" element={<SavedVideos />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<ProtectedLayout />} />
+
           </Routes>
         </div>
       </div>
-      <Footer/>
+    
     </>
     
   );
