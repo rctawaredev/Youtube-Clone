@@ -93,7 +93,7 @@ const Home = () => {
         e.preventDefault();
         getVideoDetails();
       }}
-      className="flex items-center w-[95%] md:w-96 lg:w-[500px] 
+      className="flex items-center w-[95%] md:w-96 lg:w-125 
                  mx-4 my-6 bg-white border border-gray-300 
                  rounded-lg shadow-sm focus-within:ring-2 
                  focus-within:ring-red-500"

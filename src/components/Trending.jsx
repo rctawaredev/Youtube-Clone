@@ -100,7 +100,7 @@ const Trending = () => {
                 <img
                   src={video.thumbnailUrl}
                   alt={video.title}
-                  className="w-full md:w-[400px] rounded"
+                  className="w-full md:w-100 rounded"
                 />
 
                 {/* Video Details */}
