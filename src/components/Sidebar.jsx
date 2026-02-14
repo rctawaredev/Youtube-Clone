@@ -6,7 +6,7 @@ import { PiListPlusBold } from "react-icons/pi";
 
 const Sidebar = () => {
   return (
-    <div className="hidden fixed left-0 top-0 mt-14 md:flex w-[250px] flex-col justify-between bg-slate-100 h-screen">
+    <div className="hidden fixed left-0 top-0 mt-14 md:flex w-62.5 flex-col justify-between bg-slate-100 h-screen">
       <ul>
 
         <NavLink

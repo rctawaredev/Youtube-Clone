@@ -17,7 +17,7 @@ const App = () => {
       <div className="flex h-screen">
         <Sidebar />
 
-        <div className="w-full mt-14 md:ml-[250px]  bg-gray-50 overflow-y-auto ">
+        <div className="w-full mt-14 md:ml-62.5  bg-gray-50 overflow-y-auto ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/trending" element={<Trending />} />
