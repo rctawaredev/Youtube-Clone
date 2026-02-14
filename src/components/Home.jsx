@@ -3,7 +3,7 @@ import {useState} from 'react'
 const Home = () => {
    const [showBanner, setShowBanner] = useState(true);
   return (
-    <div className="mt-14 lg:ml-65 w-screen">
+    <div>
       {showBanner && 
       (
         <div className="bg-[url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png')] h-50 w-[100%] bg-cover">

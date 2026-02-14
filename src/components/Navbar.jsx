@@ -6,8 +6,8 @@ import { IoIosLogOut } from "react-icons/io";
 const Navbar = () => {
   const { darkMode, toggleTheme } = useTheme();
   return (
-    <nav className="fixed h-14 w-screen bg-slate-100">
-      <div className="flex items-center justify-between py-3 px-2">
+    <nav className="fixed left-0 right-0 h-14  bg-slate-100">
+      <div className="flex items-center justify-between pt-1 px-2">
         <img
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
           className="h-12 md:h-12 px-4 py-2"
