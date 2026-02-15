@@ -1,11 +1,11 @@
 import { useSavedVideos } from "../context/SavedVideosContext";
 import { Link } from "react-router-dom";
 import { PiListPlusBold } from "react-icons/pi";
-import { useTheme } from "../context/ThemeContext"; 
+import { useTheme } from "../context/ThemeContext";
 
 const SavedVideos = () => {
   const { savedVideos } = useSavedVideos();
-  const { darkMode } = useTheme(); 
+  const { darkMode } = useTheme();
 
   if (savedVideos.length === 0) {
     return (
@@ -19,14 +19,8 @@ const SavedVideos = () => {
           alt="no saved"
           className="h-60"
         />
-        <h1 className="text-xl font-semibold mt-4">
-          No saved videos found
-        </h1>
-        <p
-          className={`mt-2 ${
-            darkMode ? "text-gray-400" : "text-gray-500"
-          }`}
-        >
+        <h1 className="text-xl font-semibold mt-4">No saved videos found</h1>
+        <p className={`mt-2 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
           You can save videos while watching them
         </p>
       </div>
@@ -39,26 +33,21 @@ const SavedVideos = () => {
         darkMode ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-
- 
       <div
         className={`flex items-center gap-4 p-6 ${
           darkMode ? " text-white" : " text-black"
         }`}
       >
-       
-        <PiListPlusBold className="text-red-500 text-4xl"/>
-    
+        <PiListPlusBold className="text-red-500 text-4xl" />
+
         <h1 className="text-2xl font-bold">Saved Videos</h1>
       </div>
 
-     
       <ul className="p-6 space-y-8">
         {savedVideos.map((video) => (
           <li key={video.id}>
             <Link to={`/videos/${video.id}`}>
               <div className="flex flex-col md:flex-row gap-6">
-
                 {/* Thumbnail */}
                 <img
                   src={video.thumbnailUrl}
@@ -68,9 +57,7 @@ const SavedVideos = () => {
 
                 {/* Details */}
                 <div className="flex flex-col gap-3">
-                  <h1 className="text-lg font-medium">
-                    {video.title}
-                  </h1>
+                  <h1 className="text-lg font-medium">{video.title}</h1>
 
                   <p
                     className={`text-sm ${
@@ -88,13 +75,11 @@ const SavedVideos = () => {
                     {video.viewCount} views • {video.publishedAt}
                   </p>
                 </div>
-
               </div>
             </Link>
           </li>
         ))}
       </ul>
-
     </div>
   );
 };
