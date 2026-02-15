@@ -27,7 +27,7 @@ const Sidebar = () => {
                   : "bg-gray-300"
                 : darkMode
                 ? "hover:bg-neutral-700"
-                : "hover:bg-slate-400"
+                : "hover:bg-gray-200"
             }`
           }
         >
