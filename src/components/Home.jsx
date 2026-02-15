@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { FaSearch } from "react-icons/fa";
-import { useTheme } from "../context/ThemeContext"; 
+import { useTheme } from "../context/ThemeContext";
 
 const apiStatusConstants = {
   INITIAL: "INITIAL",
@@ -14,7 +14,7 @@ const apiStatusConstants = {
 };
 
 const Home = () => {
-  const { darkMode } = useTheme(); 
+  const { darkMode } = useTheme();
 
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.INITIAL);
   const [videoDetails, setVideoDetails] = useState([]);
@@ -60,8 +60,6 @@ const Home = () => {
     getVideoDetails();
   }, []);
 
-
-
   const renderBanner = () =>
     showBanner && (
       <div className="bg-[url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png')] bg-cover w-full p-6">
@@ -74,7 +72,6 @@ const Home = () => {
           <RxCross2
             className="text-2xl cursor-pointer 
               text-black"
-            
             onClick={() => setShowBanner(false)}
           />
         </div>
@@ -83,17 +80,15 @@ const Home = () => {
           Buy Nxt Watch Premium prepaid plans with UPI
         </h1>
 
-       <button
-        className="text-black border-slate-900
+        <button
+          className="text-black border-slate-900
                     mt-4 border px-4 py-1 rounded 
                     hover:bg-red-500 hover:text-white transition"
-      >
-        GET IT NOW
-      </button>
+        >
+          GET IT NOW
+        </button>
       </div>
     );
-
-
 
   const renderSearch = () => (
     <form
@@ -102,7 +97,7 @@ const Home = () => {
         getVideoDetails();
       }}
       className={`flex items-center w-[95%] md:w-96 lg:w-125 
-                 mx-4 my-6 border rounded-lg shadow-sm 
+                 mx-3 mb-6 border rounded-lg shadow-sm 
                  focus-within:ring-2 focus-within:ring-red-500
                  ${
                    darkMode
@@ -133,10 +128,8 @@ const Home = () => {
     </form>
   );
 
-
-
   const renderSuccessView = () => (
-    <>
+    <div className="pt-6">
       {renderSearch()}
 
       {videoDetails.length === 0 ? (
@@ -209,18 +202,14 @@ const Home = () => {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
-
- 
 
   const renderLoadingView = () => (
     <div className="flex justify-center items-center h-64">
       <BeatLoader color="#ef4444" />
     </div>
   );
-
-
 
   const renderFailureView = () => (
     <div className="flex flex-col items-center mt-10">
@@ -230,9 +219,7 @@ const Home = () => {
         className="h-60"
       />
 
-      <h1 className="text-lg font-semibold mt-4">
-        Oops! Something Went Wrong
-      </h1>
+      <h1 className="text-lg font-semibold mt-4">Oops! Something Went Wrong</h1>
 
       <p
         className={`mt-2 text-center ${
@@ -265,7 +252,9 @@ const Home = () => {
   };
 
   return (
-    <div className={`${darkMode ? "bg-black text-white" : "bg-white text-black"} min-h-screen`}>
+    <div
+      className={`${darkMode ? "bg-black text-white" : "bg-white text-black"} min-h-screen`}
+    >
       {renderBanner()}
       {renderView()}
     </div>
