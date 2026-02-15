@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { BeatLoader } from "react-spinners";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { MdPlaylistAdd } from "react-icons/md";
+import { useSavedVideos } from "../context/SavedVideosContext";
 
 const apiStatusConstants = {
   INITIAL: "INITIAL",
@@ -43,6 +44,7 @@ const VideoDetails = () => {
           viewCount: video.view_count,
           publishedAt: video.published_at,
           description: video.description,
+          thumbnailUrl: video.thumbnail_url,
           channel: {
             name: video.channel.name,
             profileImageUrl: video.channel.profile_image_url,
@@ -63,6 +65,8 @@ const VideoDetails = () => {
   useEffect(() => {
     getVideoDetails();
   }, [id]);
+
+  const { savedVideos, toggleSaveVideo } = useSavedVideos();
 
   /* ---------------- Loading View ---------------- */
 
@@ -96,81 +100,84 @@ const VideoDetails = () => {
 
   /* ---------------- Success View ---------------- */
 
-  const renderSuccessView = () => (
-    <div className="p-6 pb-30">
-      {/* Video Player */}
-      <div >
-        <ReactPlayer
-          src={videoData.videoUrl}
-          controls
-          width="100%"
-          height="50vh"
-        />
-      </div>
-
-      {/* Title */}
-      <h1 className="text-lg pt-5 font-semibol">
-        {videoData.title}
-      </h1>
-
-      {/* Views + Actions */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-3 border-b pb-4">
-        <p className="text-sm text-gray-500">
-          {videoData.viewCount} views • {videoData.publishedAt}
-        </p>
-
-        <div className="flex gap-6 mt-3 md:mt-0 text-sm">
-          <button
-            onClick={() => {
-              setLiked(!liked);
-              setDisliked(false);
-            }}
-            className={`flex items-center gap-1 ${
-              liked ? "text-blue-500" : "text-gray-500"
-            }`}
-          >
-            <AiOutlineLike /> Like
-          </button>
-
-          <button
-            onClick={() => {
-              setDisliked(!disliked);
-              setLiked(false);
-            }}
-            className={`flex items-center gap-1 ${
-              disliked ? "text-blue-500" : "text-gray-500"
-            }`}
-          >
-            <AiOutlineDislike /> Dislike
-          </button>
-
-          <button className="flex items-center gap-1 text-gray-500">
-            <MdPlaylistAdd /> Save
-          </button>
-        </div>
-      </div>
-
-      {/* Channel Info */}
-      <div className="flex gap-4 mt-4">
-        <img
-          src={videoData.channel.profileImageUrl}
-          alt={videoData.channel.name}
-          className="h-10 w-10 rounded-full"
-        />
+  const renderSuccessView = () => {
+    const isSaved = savedVideos.find((video) => video.id === videoData.id);
+    return (
+      <div className="p-6 pb-30">
+        {/* Video Player */}
         <div>
-          <p className="font-medium">
-            {videoData.channel.name}
-          </p>
+          <ReactPlayer
+            src={videoData.videoUrl}
+            controls
+            width="100%"
+            height="50vh"
+          />
+        </div>
+
+        {/* Title */}
+        <h1 className="text-lg pt-5 font-semibol">{videoData.title}</h1>
+
+        {/* Views + Actions */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-3 border-b pb-4">
           <p className="text-sm text-gray-500">
-            {videoData.channel.subscriberCount} Subscribers
+            {videoData.viewCount} views • {videoData.publishedAt}
           </p>
-          <p className="text-sm mt-3">
-            {videoData.description}
-          </p>
+
+          <div className="flex gap-6 mt-3 md:mt-0 text-sm">
+            <button
+              onClick={() => {
+                setLiked(!liked);
+                setDisliked(false);
+              }}
+              className={`flex items-center gap-1 ${
+                liked ? "text-blue-500" : "text-gray-500"
+              }`}
+            >
+              <AiOutlineLike /> Like
+            </button>
+
+            <button
+              onClick={() => {
+                setDisliked(!disliked);
+                setLiked(false);
+              }}
+              className={`flex items-center gap-1 ${
+                disliked ? "text-blue-500" : "text-gray-500"
+              }`}
+            >
+              <AiOutlineDislike /> Dislike
+            </button>
+
+            <button
+              onClick={() => toggleSaveVideo(videoData)}
+              className={`flex items-center gap-1 ${
+                isSaved ? "text-blue-500" : "text-gray-500"
+              }`}
+            >
+              <MdPlaylistAdd />
+              {isSaved ? "Saved" : "Save"}
+            </button>
+          </div>
+        </div>
+
+        {/* Channel Info */}
+        <div className="flex gap-4 mt-4">
+          <img
+            src={videoData.channel.profileImageUrl}
+            alt={videoData.channel.name}
+            className="h-10 w-10 rounded-full"
+          />
+          <div>
+            <p className="font-medium">{videoData.channel.name}</p>
+            <p className="text-sm text-gray-500">
+              {videoData.channel.subscriberCount} Subscribers
+            </p>
+            <p className="text-sm mt-3">{videoData.description}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   /* ---------------- Switch Renderer ---------------- */
 

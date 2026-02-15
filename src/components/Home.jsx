@@ -31,7 +31,6 @@ const Home = () => {
 
       if (response.ok) {
         const data = await response.json();
-
         const updatedVideos = data.videos.map((eachVideo) => ({
           id: eachVideo.id,
           title: eachVideo.title,
@@ -145,10 +144,7 @@ const Home = () => {
       ) : (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-10">
           {videoDetails.map((eachVideo) => (
-            <li
-              key={eachVideo.id}
-              
-            >
+            <li key={eachVideo.id}>
               <Link to={`/videos/${eachVideo.id}`}>
                 <img
                   src={eachVideo.thumbnailUrl}
@@ -204,9 +200,7 @@ const Home = () => {
         className="h-60"
       />
 
-      <h1 className="text-lg font-semibold mt-4">
-        Oops! Something Went Wrong
-      </h1>
+      <h1 className="text-lg font-semibold mt-4">Oops! Something Went Wrong</h1>
 
       <p className="text-gray-500 mt-2 text-center">
         We are having some trouble completing your request.
