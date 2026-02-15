@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { FaLinkedin } from "react-icons/fa";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -10,17 +11,17 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSuccessLogin = jwtToken => {
+  const onSuccessLogin = (jwtToken) => {
     Cookies.set("jwt_token", jwtToken, { expires: 30 });
     navigate("/", { replace: true });
   };
 
-  const onFailureLogin = errorMsg => {
+  const onFailureLogin = (errorMsg) => {
     setErrorMsg(errorMsg);
     setShowErrorMsg(true);
   };
 
-  const onSubmitForm = async event => {
+  const onSubmitForm = async (event) => {
     event.preventDefault();
 
     const userDetails = { username, password };
@@ -40,7 +41,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      
+
       <form
         onSubmit={onSubmitForm}
         className="bg-white shadow-lg rounded-lg p-8 w-90"
@@ -51,7 +54,7 @@ const Login = () => {
           className="h-10 mx-auto mb-6"
         />
 
-        {/* Username */}
+      
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
             USERNAME
@@ -60,12 +63,12 @@ const Login = () => {
             type="text"
             value={username}
             placeholder="rahul"
-            onChange={e => setUsername(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none "
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
-        {/* Password */}
+      
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
             PASSWORD
@@ -74,14 +77,14 @@ const Login = () => {
             type="password"
             value={password}
             placeholder="rahul@2021"
-            onChange={e => setPassword(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none  "
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500  text-white py-2 rounded-md hover:bg-red-400 transition duration-100"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-red-400 transition duration-200"
         >
           Login
         </button>
@@ -92,6 +95,27 @@ const Login = () => {
           </p>
         )}
       </form>
+
+   
+      <div className="mt-6 text-center text-sm text-gray-600">
+        <p>
+          Built with ❤️ by{" "}
+          <span className="font-semibold">Rohan Taware</span>
+        </p>
+
+        <a
+          href="https://www.linkedin.com/in/rctaware/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-flex items-center gap-2 
+                     text-blue-600 hover:text-blue-800 
+                     hover:scale-105 transition duration-200"
+        >
+          <FaLinkedin className="text-lg" />
+          Connect on LinkedIn
+        </a>
+      </div>
+
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { FaSearch } from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext"; 
 
 const apiStatusConstants = {
   INITIAL: "INITIAL",
@@ -13,6 +14,8 @@ const apiStatusConstants = {
 };
 
 const Home = () => {
+  const { darkMode } = useTheme(); 
+
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.INITIAL);
   const [videoDetails, setVideoDetails] = useState([]);
   const [showBanner, setShowBanner] = useState(true);
@@ -57,7 +60,7 @@ const Home = () => {
     getVideoDetails();
   }, []);
 
-  /* ---------------- Banner ---------------- */
+
 
   const renderBanner = () =>
     showBanner && (
@@ -69,22 +72,28 @@ const Home = () => {
             alt="banner logo"
           />
           <RxCross2
-            className="text-2xl cursor-pointer"
+            className="text-2xl cursor-pointer 
+              text-black"
+            
             onClick={() => setShowBanner(false)}
           />
         </div>
 
-        <h1 className="mt-4 md:text-lg w-2/3">
+        <h1 className="mt-4 md:text-lg w-2/3 text-black">
           Buy Nxt Watch Premium prepaid plans with UPI
         </h1>
 
-        <button className="mt-4 border px-4 py-1 rounded hover:bg-red-500 hover:text-white transition">
-          GET IT NOW
-        </button>
+       <button
+        className="text-black border-slate-900
+                    mt-4 border px-4 py-1 rounded 
+                    hover:bg-red-500 hover:text-white transition"
+      >
+        GET IT NOW
+      </button>
       </div>
     );
 
-  /* ---------------- Search ---------------- */
+
 
   const renderSearch = () => (
     <form
@@ -92,30 +101,39 @@ const Home = () => {
         e.preventDefault();
         getVideoDetails();
       }}
-      className="flex items-center w-[95%] md:w-96 lg:w-125 
-                 mx-4 my-6 bg-white border border-gray-300 
-                 rounded-lg shadow-sm focus-within:ring-2 
-                 focus-within:ring-red-500"
+      className={`flex items-center w-[95%] md:w-96 lg:w-125 
+                 mx-4 my-6 border rounded-lg shadow-sm 
+                 focus-within:ring-2 focus-within:ring-red-500
+                 ${
+                   darkMode
+                     ? "bg-neutral-800 border-neutral-700"
+                     : "bg-white border-gray-300"
+                 }`}
     >
       <input
         type="search"
         placeholder="Search"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        className="flex-1 px-4 py-2 outline-none"
+        className={`flex-1 px-4 py-2 outline-none rounded-md ${
+          darkMode ? "bg-neutral-800 text-white" : "bg-white text-black"
+        }`}
       />
 
       <button
         type="submit"
-        className="px-4 h-10 py-2 bg-gray-100 hover:bg-red-500 
-                   hover:text-white rounded-r-lg transition"
+        className={`px-4 h-10 py-2 rounded-r-lg transition ${
+          darkMode
+            ? "bg-neutral-700 hover:bg-red-500 hover:text-white text-white"
+            : "bg-gray-100 hover:bg-red-500 hover:text-white"
+        }`}
       >
         <FaSearch />
       </button>
     </form>
   );
 
-  /* ---------------- Success View ---------------- */
+
 
   const renderSuccessView = () => (
     <>
@@ -131,7 +149,11 @@ const Home = () => {
           <h1 className="text-lg font-semibold mt-4">
             No Search Results Found
           </h1>
-          <p className="text-gray-500 text-sm mt-2 text-center">
+          <p
+            className={`text-sm mt-2 text-center ${
+              darkMode ? "text-gray-300" : "text-gray-500"
+            }`}
+          >
             Try different keywords or remove search filter
           </p>
           <button
@@ -164,11 +186,19 @@ const Home = () => {
                       {eachVideo.title}
                     </p>
 
-                    <p className="text-sm text-gray-500">
+                    <p
+                      className={`text-sm ${
+                        darkMode ? "text-gray-300" : "text-gray-500"
+                      }`}
+                    >
                       {eachVideo.channel.name}
                     </p>
 
-                    <div className="flex gap-3 text-xs text-gray-500">
+                    <div
+                      className={`flex gap-3 text-xs ${
+                        darkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
                       <span>{eachVideo.viewCount} views</span>
                       <span>{eachVideo.publishedAt}</span>
                     </div>
@@ -182,7 +212,7 @@ const Home = () => {
     </>
   );
 
-  /* ---------------- Loading ---------------- */
+ 
 
   const renderLoadingView = () => (
     <div className="flex justify-center items-center h-64">
@@ -190,7 +220,7 @@ const Home = () => {
     </div>
   );
 
-  /* ---------------- Failure ---------------- */
+
 
   const renderFailureView = () => (
     <div className="flex flex-col items-center mt-10">
@@ -200,9 +230,15 @@ const Home = () => {
         className="h-60"
       />
 
-      <h1 className="text-lg font-semibold mt-4">Oops! Something Went Wrong</h1>
+      <h1 className="text-lg font-semibold mt-4">
+        Oops! Something Went Wrong
+      </h1>
 
-      <p className="text-gray-500 mt-2 text-center">
+      <p
+        className={`mt-2 text-center ${
+          darkMode ? "text-gray-300" : "text-gray-500"
+        }`}
+      >
         We are having some trouble completing your request.
       </p>
 
@@ -214,8 +250,6 @@ const Home = () => {
       </button>
     </div>
   );
-
-  /* ---------------- Switch View ---------------- */
 
   const renderView = () => {
     switch (apiStatus) {
@@ -231,10 +265,10 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className={`${darkMode ? "bg-black text-white" : "bg-white text-black"} min-h-screen`}>
       {renderBanner()}
       {renderView()}
-    </>
+    </div>
   );
 };
 

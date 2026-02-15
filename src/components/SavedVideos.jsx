@@ -1,13 +1,19 @@
 import { useSavedVideos } from "../context/SavedVideosContext";
 import { Link } from "react-router-dom";
-import { BsBookmark } from "react-icons/bs";
+import { PiListPlusBold } from "react-icons/pi";
+import { useTheme } from "../context/ThemeContext"; 
 
 const SavedVideos = () => {
   const { savedVideos } = useSavedVideos();
+  const { darkMode } = useTheme(); 
 
   if (savedVideos.length === 0) {
     return (
-      <div className="flex flex-col items-center mt-20">
+      <div
+        className={`flex flex-col items-center mt-20 min-h-screen ${
+          darkMode ? "bg-black text-white" : "bg-white text-black"
+        }`}
+      >
         <img
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
           alt="no saved"
@@ -16,7 +22,11 @@ const SavedVideos = () => {
         <h1 className="text-xl font-semibold mt-4">
           No saved videos found
         </h1>
-        <p className="text-gray-500 mt-2">
+        <p
+          className={`mt-2 ${
+            darkMode ? "text-gray-400" : "text-gray-500"
+          }`}
+        >
           You can save videos while watching them
         </p>
       </div>
@@ -24,17 +34,25 @@ const SavedVideos = () => {
   }
 
   return (
-    <div>
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
 
-      {/* 🔥 Header like Trending */}
-      <div className="flex items-center gap-4 bg-gray-100 p-6">
-        <div className="bg-gray-200 p-4 rounded-full">
-          <BsBookmark className="text-xl text-gray-700" />
-        </div>
+ 
+      <div
+        className={`flex items-center gap-4 p-6 ${
+          darkMode ? " text-white" : " text-black"
+        }`}
+      >
+       
+        <PiListPlusBold className="text-red-500 text-4xl"/>
+    
         <h1 className="text-2xl font-bold">Saved Videos</h1>
       </div>
 
-      {/* 🔥 Videos List styled like Trending */}
+     
       <ul className="p-6 space-y-8">
         {savedVideos.map((video) => (
           <li key={video.id}>
@@ -54,11 +72,19 @@ const SavedVideos = () => {
                     {video.title}
                   </h1>
 
-                  <p className="text-gray-600 text-sm">
+                  <p
+                    className={`text-sm ${
+                      darkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
                     {video.channel.name}
                   </p>
 
-                  <p className="text-gray-500 text-sm">
+                  <p
+                    className={`text-sm ${
+                      darkMode ? "text-gray-500" : "text-gray-500"
+                    }`}
+                  >
                     {video.viewCount} views • {video.publishedAt}
                   </p>
                 </div>

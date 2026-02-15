@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { BsFire } from "react-icons/bs";
+import { useTheme } from "../context/ThemeContext";
 
 const apiStatusConstants = {
   INITIAL: "INITIAL",
@@ -12,6 +13,7 @@ const apiStatusConstants = {
 };
 
 const Trending = () => {
+  const { darkMode } = useTheme();
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.INITIAL);
   const [trendingVideos, setTrendingVideos] = useState([]);
 
@@ -52,21 +54,15 @@ const Trending = () => {
     getTrendingVideos();
   }, []);
 
-  /* ---------------- Loading ---------------- */
-
   const renderLoadingView = () => (
     <div className="flex justify-center items-center h-64">
       <BeatLoader color="#ef4444" />
     </div>
   );
 
-  /* ---------------- Failure ---------------- */
-
   const renderFailureView = () => (
     <div className="flex flex-col items-center mt-10">
-      <h1 className="text-xl font-semibold">
-        Oops! Something Went Wrong
-      </h1>
+      <h1 className="text-xl font-semibold">Oops! Something Went Wrong</h1>
       <button
         onClick={getTrendingVideos}
         className="bg-blue-500 text-white px-4 py-2 mt-4 rounded"
@@ -76,17 +72,15 @@ const Trending = () => {
     </div>
   );
 
-  /* ---------------- Success ---------------- */
-
   const renderSuccessView = () => (
     <div>
-
-      {/* Trending Header */}
-      <div className="flex items-center gap-4 bg-gray-100 p-6">
-        <div className="bg-red-100 p-4 rounded-full">
-          <BsFire className="text-red-500 text-2xl" />
-        </div>
-        <h1 className="text-2xl font-bold">Trending</h1>
+      <div
+        className={`flex items-center gap-4 p-6 ${
+          darkMode ? "text-white" : " text-black"
+        }`}
+      >
+        <BsFire className="text-red-500 text-4xl" />
+        <h1 className="text-3xl font-bold">Trending</h1>
       </div>
 
       {/* Videos List */}
@@ -95,7 +89,6 @@ const Trending = () => {
           <li key={video.id}>
             <Link to={`/videos/${video.id}`}>
               <div className="flex flex-col md:flex-row gap-6">
-
                 {/* Thumbnail */}
                 <img
                   src={video.thumbnailUrl}
@@ -105,27 +98,29 @@ const Trending = () => {
 
                 {/* Video Details */}
                 <div className="flex flex-col gap-3">
-                  <h1 className="text-lg font-medium">
-                    {video.title}
-                  </h1>
-                  <p className="text-gray-600 text-sm">
+                  <h1 className="text-lg font-medium">{video.title}</h1>
+                  <p
+                    className={`text-sm ${
+                      darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     {video.channelName}
                   </p>
-                  <p className="text-gray-500 text-sm">
+                  <p
+                    className={`text-sm ${
+                      darkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  >
                     {video.viewCount} views • {video.publishedAt}
                   </p>
                 </div>
-
               </div>
             </Link>
           </li>
         ))}
       </ul>
-
     </div>
   );
-
-  /* ---------------- Switch ---------------- */
 
   const renderView = () => {
     switch (apiStatus) {
@@ -140,7 +135,15 @@ const Trending = () => {
     }
   };
 
-  return renderView();
+  return (
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
+      {renderView()}
+    </div>
+  );
 };
 
 export default Trending;

@@ -3,10 +3,17 @@ import { AiFillHome } from "react-icons/ai";
 import { BsFire } from "react-icons/bs";
 import { SiYoutubegaming } from "react-icons/si";
 import { PiListPlusBold } from "react-icons/pi";
+import { useTheme } from "../context/ThemeContext";
 
 const Sidebar = () => {
+  const { darkMode } = useTheme();
+
   return (
-    <div className="hidden fixed left-0 top-0 mt-14 md:flex w-62.5 flex-col justify-between bg-slate-100 h-screen">
+    <div
+      className={`${
+        darkMode ? "bg-neutral-800 text-white" : "bg-slate-100 text-black"
+      } hidden fixed left-0 top-0 mt-14 md:flex w-62.5 flex-col justify-between h-screen`}
+    >
       <ul>
 
         <NavLink
@@ -14,7 +21,13 @@ const Sidebar = () => {
           end
           className={({ isActive }) =>
             `flex items-center gap-3 text-lg p-3 px-6 cursor-pointer ${
-              isActive ? "bg-gray-300" : "hover:bg-gray-200"
+              isActive
+                ? darkMode
+                  ? "bg-neutral-700"
+                  : "bg-gray-300"
+                : darkMode
+                ? "hover:bg-neutral-700"
+                : "hover:bg-slate-400"
             }`
           }
         >
@@ -22,7 +35,11 @@ const Sidebar = () => {
             <>
               <AiFillHome
                 className={`text-3xl ${
-                  isActive ? "text-red-500" : "text-neutral-500"
+                  isActive
+                    ? "text-red-500"
+                    : darkMode
+                    ? "text-gray-300"
+                    : "text-neutral-500"
                 }`}
               />
               Home
@@ -34,7 +51,13 @@ const Sidebar = () => {
           to="/trending"
           className={({ isActive }) =>
             `flex items-center gap-3 text-lg p-3 px-6 cursor-pointer ${
-              isActive ? "bg-gray-300" : "hover:bg-gray-200"
+              isActive
+                ? darkMode
+                  ? "bg-neutral-700"
+                  : "bg-gray-300"
+                : darkMode
+                ? "hover:bg-neutral-700"
+                : "hover:bg-gray-200"
             }`
           }
         >
@@ -42,7 +65,11 @@ const Sidebar = () => {
             <>
               <BsFire
                 className={`text-3xl ${
-                  isActive ? "text-red-500" : "text-neutral-500"
+                  isActive
+                    ? "text-red-500"
+                    : darkMode
+                    ? "text-gray-300"
+                    : "text-neutral-500"
                 }`}
               />
               Trending
@@ -54,7 +81,13 @@ const Sidebar = () => {
           to="/gaming"
           className={({ isActive }) =>
             `flex items-center gap-3 text-lg p-3 px-6 cursor-pointer ${
-              isActive ? "bg-gray-300" : "hover:bg-gray-200"
+              isActive
+                ? darkMode
+                  ? "bg-neutral-700"
+                  : "bg-gray-300"
+                : darkMode
+                ? "hover:bg-neutral-700"
+                : "hover:bg-gray-200"
             }`
           }
         >
@@ -62,7 +95,11 @@ const Sidebar = () => {
             <>
               <SiYoutubegaming
                 className={`text-3xl ${
-                  isActive ? "text-red-500" : "text-neutral-500"
+                  isActive
+                    ? "text-red-500"
+                    : darkMode
+                    ? "text-gray-300"
+                    : "text-neutral-500"
                 }`}
               />
               Gaming
@@ -74,7 +111,13 @@ const Sidebar = () => {
           to="/saved"
           className={({ isActive }) =>
             `flex items-center gap-3 text-lg p-3 px-6 cursor-pointer ${
-              isActive ? "bg-gray-300" : "hover:bg-gray-200"
+              isActive
+                ? darkMode
+                  ? "bg-neutral-700"
+                  : "bg-gray-300"
+                : darkMode
+                ? "hover:bg-neutral-700"
+                : "hover:bg-gray-200"
             }`
           }
         >
@@ -82,7 +125,11 @@ const Sidebar = () => {
             <>
               <PiListPlusBold
                 className={`text-3xl ${
-                  isActive ? "text-red-500" : "text-neutral-500"
+                  isActive
+                    ? "text-red-500"
+                    : darkMode
+                    ? "text-gray-300"
+                    : "text-neutral-500"
                 }`}
               />
               Saved Videos
@@ -94,6 +141,7 @@ const Sidebar = () => {
 
       <div className="px-4 py-20">
         <h1 className="text-xl pb-4 font-medium">CONTACT US</h1>
+
         <ul className="flex gap-3">
           <li>
             <img
@@ -114,7 +162,8 @@ const Sidebar = () => {
             />
           </li>
         </ul>
-        <p className="text-lg pt-4 ">
+
+        <p className={`${darkMode ? "text-gray-300" : "text-black"} text-lg pt-4`}>
           Enjoy! Now to see your channels and recommendations!
         </p>
       </div>

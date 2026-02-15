@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { SiYoutubegaming } from "react-icons/si";
+import { useTheme } from "../context/ThemeContext";
 
 const apiStatusConstants = {
   INITIAL: "INITIAL",
@@ -12,6 +13,7 @@ const apiStatusConstants = {
 };
 
 const Gaming = () => {
+  const { darkMode } = useTheme(); 
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.INITIAL);
   const [gamingVideos, setGamingVideos] = useState([]);
 
@@ -50,7 +52,7 @@ const Gaming = () => {
     getGamingVideos();
   }, []);
 
-  /* ---------------- Loading ---------------- */
+
 
   const renderLoadingView = () => (
     <div className="flex justify-center items-center h-64">
@@ -58,7 +60,7 @@ const Gaming = () => {
     </div>
   );
 
-  /* ---------------- Failure ---------------- */
+
 
   const renderFailureView = () => (
     <div className="flex flex-col items-center mt-10">
@@ -74,17 +76,21 @@ const Gaming = () => {
     </div>
   );
 
-  /* ---------------- Success ---------------- */
+
 
   const renderSuccessView = () => (
     <div>
 
       {/* Gaming Header */}
-      <div className="flex items-center gap-4 bg-gray-100 p-6">
-        <div className="bg-red-100 p-4 rounded-full">
-          <SiYoutubegaming className="text-red-500 text-2xl" />
-        </div>
-        <h1 className="text-2xl font-bold">Gaming</h1>
+      <div
+        className={`flex items-center gap-4 p-6 ${
+          darkMode ? " text-white" : " text-black"
+        }`}
+      >
+    
+          <SiYoutubegaming className="text-red-500 text-4xl" />
+     
+        <h1 className="text-3xl font-bold">Gaming</h1>
       </div>
 
       {/* Gaming Grid */}
@@ -103,7 +109,11 @@ const Gaming = () => {
                 {video.title}
               </h1>
 
-              <p className="text-sm text-gray-500">
+              <p
+                className={`text-sm ${
+                  darkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
                 {video.viewCount} Watching Worldwide
               </p>
 
@@ -114,8 +124,6 @@ const Gaming = () => {
 
     </div>
   );
-
-  /* ---------------- Switch ---------------- */
 
   const renderView = () => {
     switch (apiStatus) {
@@ -131,8 +139,14 @@ const Gaming = () => {
   };
 
   return (
-    renderView()
-  )
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
+      {renderView()}
+    </div>
+  );
 };
 
 export default Gaming;
