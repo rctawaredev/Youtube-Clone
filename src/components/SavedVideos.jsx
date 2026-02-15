@@ -10,7 +10,7 @@ const SavedVideos = () => {
   if (savedVideos.length === 0) {
     return (
       <div
-        className={`flex flex-col items-center mt-20 min-h-screen ${
+        className={`flex flex-col items-center pt-20 min-h-screen ${
           darkMode ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
